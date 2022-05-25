@@ -15,6 +15,7 @@ var Message = mongoose.model('Message',{
 })
 
 var dbUrl = 'mongodb://mongouser:mongopwd@mongo:27017/admin'
+var mongoURL = process.env.MONGODB_URI || dbUrl;
 
 app.get('/messages', (req, res) => {
   Message.find({},(err, messages)=> {
