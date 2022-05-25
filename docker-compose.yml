@@ -1,0 +1,35 @@
+version: '3'
+
+networks:
+  api-network:
+    driver: bridge 
+
+volumes:
+  mongo-vol:
+
+services:
+  mongodb:
+    image: mongo
+    volumes:
+      - "mongo-vol:/data/db"
+    networks:
+      - "api-network"
+    environment: 
+      MONGO_INITDB_ROOT_USERNAME: mongouser 
+      MONGO_INITDB_ROOT_PASSWORD: mongopwd   
+    #ports:
+      #- 27017:27017
+
+  simple-chat:
+    image: thandi13/simple-chat:v0.92
+    build: 
+      dockerfile: Dockerfile
+    environment: 
+      MONGODB_URI: mongodb://mongouser:mongopwd@mongo:27017/admin 
+    networks:
+      - "api-network"
+    ports:
+      - 3000:3000
+    depends_on:
+      - "mongodb"
+  
