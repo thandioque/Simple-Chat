@@ -11,5 +11,8 @@ stages:
     - job: Pipeline_CI
       displayName: Execução da Pipeline CI
       steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '14.19.3-alpine3.14'
       - script: |
           node --version
