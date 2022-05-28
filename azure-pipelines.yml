@@ -13,6 +13,6 @@ stages:
       steps:
       - task: NodeTool@0
         inputs:
-          versionSpec: '>=14.19.3'
+          versionSpec: '>=12.0.0'
       - script: |
           node --version
