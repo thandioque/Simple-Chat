@@ -8,7 +8,7 @@ stages:
 - stage: CI
   displayName: Pipeline de Integração Contínua
   jobs:
-    - job: Pipeline CI
+    - job: Pipeline_CI
       displayName: Execução da Pipeline CI
       steps:
       - script: |
