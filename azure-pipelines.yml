@@ -20,7 +20,7 @@ stages:
           containerRegistry: 'Thandi13_Docker_Connection'
           repository: 'thandi13/simple-chat'
           command: 'buildAndPush'
-          Dockerfile: '/Dockerfile'
+          Dockerfile: 'Dockerfile'
           tags: |
             $(Build.BuildId)
             latest
