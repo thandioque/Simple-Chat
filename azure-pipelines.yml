@@ -12,7 +12,9 @@ stages:
       displayName: Execução da Pipeline CI
       steps:
       - task: NodeTool@0
+        displayName: Intalação da versão correta do NodeJs
         inputs:
-          versionSpec: '14.19.x'
+          versionSpec: '14.19.3'
+      
       - script: |
           node --version
