@@ -15,6 +15,12 @@ stages:
         displayName: Intalação da versão correta do NodeJs
         inputs:
           versionSpec: '14.19.3'
-      
-      - script: |
-          node --version
+      - task: Docker@2
+        inputs:
+          containerRegistry: 'Thandi13_Docker_Connection'
+          repository: 'thandi13/simple-chat'
+          command: 'buildAndPush'
+          Dockerfile: '/Dockerfile'
+          tags: |
+            $(Build.BuildId)
+            latest
