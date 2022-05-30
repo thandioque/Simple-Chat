@@ -22,5 +22,5 @@ stages:
           command: 'buildAndPush'
           Dockerfile: 'Dockerfile'
           tags: |
-            $(Build.BuildId)
+            v-ADO-$(Build.BuildId)
             latest
