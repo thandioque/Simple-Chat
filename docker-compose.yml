@@ -8,7 +8,7 @@ volumes:
   mongo-vol:
 
 services:
-  mongodb:
+  mongo:
     image: mongo
     volumes:
       - "mongo-vol:/data/db"
