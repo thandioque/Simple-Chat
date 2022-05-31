@@ -51,8 +51,9 @@ stages:
           
           sudo usermod -aG docker ec2-user
           
-          docker run hello-world
-          
           sudo dockerd
+          
+          docker run hello-world
+
         readyTimeout: '20000'
 
