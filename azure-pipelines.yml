@@ -33,11 +33,6 @@ stages:
           tags: |
             v-ADO-$(Build.BuildId)
             latest
-    - job: Find
-      displayName: Encontrar o Ip do Azure Devops 
-      steps:
-      - script: 
-          curl http://ipinfo.io/json  
 - stage: CD
   displayName: Pipeline de Deploy Contínuo
   dependsOn: CI
@@ -49,5 +44,12 @@ stages:
       inputs:
         sshEndpoint: 'simple_chat_ec2_ssh'
         runOptions: 'commands'
-        commands: 'mkdir oi'
+        commands: |
+          sudo yum update -y
+          
+          sudo yum install -y docker
+          
+          sudo usermod -aG docker ec2-user
+          
+          docker run hello-world
         readyTimeout: '100000'
