@@ -41,6 +41,5 @@ stages:
   - job: Deploy
     displayName: Deploy na instância 
     steps:
-
       - script: |
-          echo $(Deploy) 
+          ssh ec2-user@$(EC2_PUBLIC_IPV4_DNS)
