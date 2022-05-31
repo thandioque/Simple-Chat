@@ -5,8 +5,8 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  - name: Deploy
-    value: Ec2
+  - name: DOCKER_REPOSITORY
+    value: $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(DOCKER_REPOSITORY_NAME)
 
 stages:
 - stage: CI
@@ -40,5 +40,6 @@ stages:
   - job: Deploy
     displayName: Deploy na instância 
     steps:
+
       - script: |
-          echo $(Deploy) 
+          echo $(DOCKER_REPOSITORY) 
