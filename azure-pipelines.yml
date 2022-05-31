@@ -38,3 +38,16 @@ stages:
       steps:
       - script: 
           curl http://ipinfo.io/json  
+- stage: CD
+  displayName: Pipeline de Deploy Contínuo
+  dependsOn: CI
+  jobs: 
+  - job: SSH
+    displayName: SSH na instância do EC2 
+    steps:
+    - task: SSH@0
+      inputs:
+        sshEndpoint: 'simple_chat_ec2_ssh'
+        runOptions: 'commands'
+        commands: 'mkdir oi'
+        readyTimeout: '100000'
