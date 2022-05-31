@@ -46,5 +46,5 @@ stages:
         sshEndpoint: 'simple_chat_ec2_ssh'
         runOptions: 'commands'
         commands: 'mkdir oi'
-        readyTimeout: '20000'
+        readyTimeout: '100000'
           
