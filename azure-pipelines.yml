@@ -44,7 +44,5 @@ stages:
       inputs:
         sshEndpoint: 'simple_chat_ec2_ssh'
         runOptions: 'commands'
-        commands: 'sudo yum update -y;sudo amazon-linux-extras install docker;sudo systemctl enable docker;sudo usermod -a -G docker ec2-user;sudo docker run thandi13/simple-chat:latest'
+        commands: 'sudo yum update -y;sudo amazon-linux-extras install docker;sudo systemctl enable docker;sudo usermod -a -G docker ec2-user;sudo curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-`uname -s`-`uname -m` | sudo tee /usr/local/bin/docker-compose > /dev/null;sudo chmod +x /usr/local/bin/docker-compose;sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose;sudo docker-compose up'
         readyTimeout: '20000'
-
-
