@@ -22,6 +22,7 @@ stages:
     
     - job: Publish
       displayName: Construção e Publicação
+      dependsOn: Pipeline_CI
       steps:
       - task: Docker@2
         inputs:
