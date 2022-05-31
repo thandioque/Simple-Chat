@@ -41,5 +41,10 @@ stages:
   - job: Deploy
     displayName: Deploy na instância 
     steps:
-      - script: |
-          ssh ec2-user@$(EC2_PUBLIC_IPV4_DNS)
+    - task: SSH@0
+      inputs:
+        sshEndpoint: 'simple_chat_ec2_ssh'
+        runOptions: 'commands'
+        commands: 'mkdir oi'
+        readyTimeout: '20000'
+          
