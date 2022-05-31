@@ -4,6 +4,10 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  - name: Deploy
+    value: Ec2
+
 stages:
 - stage: CI
   displayName: Pipeline de Integração Contínua
@@ -15,6 +19,10 @@ stages:
         displayName: Intalação da versão correta do NodeJs
         inputs:
           versionSpec: '14.19.3'
+    
+    - job: Publish
+      displayName: Construção e Publicação
+      steps:
       - task: Docker@2
         inputs:
           containerRegistry: 'Thandi13_Docker_Connection'
@@ -24,3 +32,12 @@ stages:
           tags: |
             v-ADO-$(Build.BuildId)
             latest
+- stage: CD
+  displayName: Pipeline de Deploy Contínuo
+  dependsOn: CI
+  jobs: 
+  - job: Deploy
+    displayName: Deploy na instância 
+    steps:
+      - script: |
+          echo $(Deploy) 
