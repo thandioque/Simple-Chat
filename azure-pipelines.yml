@@ -33,18 +33,8 @@ stages:
           tags: |
             v-ADO-$(Build.BuildId)
             latest
-            
-- stage: CD
-  displayName: Pipeline de Deploy Contínuo
-  dependsOn: CI
-  jobs: 
-  - job: Deploy
-    displayName: Deploy na instância 
-    steps:
-    - task: SSH@0
-      inputs:
-        sshEndpoint: 'simple_chat_ec2_ssh'
-        runOptions: 'commands'
-        commands: 'mkdir oi'
-        readyTimeout: '100000'
-          
+    - job: Find
+      displayName: Encontrar o Ip do Azure Devops 
+      steps:
+      - script: 
+          curl http://ipinfo.io/json  
