@@ -57,5 +57,5 @@ stages:
           echo $(GIT_USER)
           echo $(GIT_PASSWORD)
           cd /home/ec2-user/Simple-Chat
-          sudo docker compose up -d
+          sudo docker-compose up -d
         readyTimeout: '20000'
