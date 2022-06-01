@@ -23,6 +23,7 @@ services:
   simple-chat:
     image: thandi13/simple-chat:v0.93
     build: 
+      context: .
       dockerfile: Dockerfile
     environment: 
       MONGODB_URI: mongodb://mongouser:mongopwd@mongo:27017/admin 
