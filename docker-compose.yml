@@ -28,6 +28,7 @@ services:
     environment: 
       MONGODB_URI: mongodb://mongouser:mongopwd@mongo:27017/admin 
       PORT: 3000
+      API_HOST: localhost
     networks:
       - "api-network"
     ports:
