@@ -14,8 +14,7 @@ var Message = mongoose.model('Message',{
   message : String
 })
 
-var dbUrl = 'mongodb://mongouser:mongopwd@mongo:27017/admin'
-var mongoURL = process.env.MONGODB_URI || dbUrl;
+var mongoURL = process.env.MONGODB_URI || 'mongodb://mongouser:mongopwd@mongo:27017/admin';
 
 app.get('/messages', (req, res) => {
   Message.find({},(err, messages)=> {
@@ -62,7 +61,7 @@ io.on('connection', () =>{
   console.log('a user is connected')
 })
 
-mongoose.connect(dbUrl ,{useNewUrlParser: true} ,(err) => {
+mongoose.connect(mongoURL ,{useNewUrlParser: true} ,(err) => {
   console.log('mongodb connected',err);
 })
 
