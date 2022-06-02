@@ -27,6 +27,7 @@ services:
       dockerfile: Dockerfile
     environment: 
       MONGODB_URI: mongodb://mongouser:mongopwd@mongo:27017/admin 
+      PORT: 3000
     networks:
       - "api-network"
     ports:
