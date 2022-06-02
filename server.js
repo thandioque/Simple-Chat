@@ -16,6 +16,8 @@ var Message = mongoose.model('Message',{
 
 var mongoURL = process.env.MONGODB_URI || 'mongodb://mongouser:mongopwd@mongo:27017/admin';
 var port = process.env.PORT || '3000';;
+var api_host = process.env.API_HOST || 'localhost';
+
 
 app.get('/messages', (req, res) => {
   Message.find({},(err, messages)=> {
@@ -66,6 +68,11 @@ mongoose.connect(mongoURL ,{useNewUrlParser: true} ,(err) => {
   console.log('mongodb connected',err);
 })
 
-var server = http.listen(port, () => {
-  console.log('server is running on port', server.address().port);
+  var server = http.listen(port, api_host, () => {
+    console.log(`Server is running on http://${api_host}:${port}`);
 });
+
+
+//var server = http.listen(port,api_host, () => {
+//  console.log('server is running on port', api_host,server.address().port);
+//});
