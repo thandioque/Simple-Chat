@@ -15,7 +15,7 @@ var Message = mongoose.model('Message',{
 })
 
 var mongoURL = process.env.MONGODB_URI || 'mongodb://mongouser:mongopwd@mongo:27017/admin';
-var port = process.env.PORT || '3000';;
+var port = process.env.PORT || '3000';
 
 app.get('/messages', (req, res) => {
   Message.find({},(err, messages)=> {
