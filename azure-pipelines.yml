@@ -52,5 +52,11 @@ stages:
           sudo yum install -y git
           sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
-          docker-compose version
+          git config --global credential.helper store
+          git clone https://github.com/thandioque/Simple-Chat.git/
+          echo $(GIT_USER)
+          echo $(GIT_PASSWORD)
+          cd /home/ec2-user/Simple-Chat
+          git pull 
+          sudo docker-compose up -d
         readyTimeout: '20000'
