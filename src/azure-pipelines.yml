@@ -1,0 +1,63 @@
+trigger:
+- staging
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  - name: Deploy
+    value: EC2
+
+stages:
+- stage: CI
+  displayName: Pipeline de Integração Contínua
+  jobs:
+    - job: Pipeline_CI
+      displayName: Execução da Pipeline CI
+      steps:
+      - task: NodeTool@0
+        displayName: Intalação da versão correta do NodeJs
+        inputs:
+          versionSpec: '14.19.3'
+    
+    - job: Publish
+      displayName: Construção e Publicação
+      dependsOn: Pipeline_CI
+      steps:
+      - task: Docker@2
+        inputs:
+          containerRegistry: 'Thandi13_Docker_Connection'
+          repository: 'thandi13/simple-chat'
+          command: 'buildAndPush'
+          Dockerfile: 'Dockerfile'
+          tags: |
+            v-ADO-$(Build.BuildId)
+            latest
+- stage: CD
+  displayName: Pipeline de Deploy Contínuo
+  dependsOn: CI
+  jobs: 
+  - job: SSH
+    displayName: SSH na instância do EC2 
+    steps:
+    - task: SSH@0
+      inputs:
+        sshEndpoint: 'simple_chat_ec2_ssh'
+        runOptions: 'inline'
+        inline: |
+          sudo yum update -y
+          sudo amazon-linux-extras install docker
+          sudo systemctl enable docker
+          sudo usermod -a -G docker ec2-user
+          sudo yum install -y git
+          sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          git config --global credential.helper store
+          git clone https://github.com/thandioque/Simple-Chat.git/
+          echo $(GIT_USER)
+          echo $(GIT_PASSWORD)
+          cd /home/ec2-user/Simple-Chat
+          git checkout staging 
+          git pull 
+          sudo docker-compose up -d
+        readyTimeout: '20000'
