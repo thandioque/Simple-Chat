@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-chat-pod
+spec:
+  containers:
+  - name: simple-chat-web-app
+    image: thandi13/simple-chat:v0.95
+    ports:
+      - containerPort: 3000
