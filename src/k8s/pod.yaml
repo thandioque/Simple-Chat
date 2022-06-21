@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: simple-chat-pod
   labels:
-    vesion: v0.95
+    tag: v0.95
 spec:
   containers:
   - name: simple-chat-web-app
