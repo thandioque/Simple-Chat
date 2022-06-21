@@ -21,7 +21,7 @@ services:
       #- 27017:27017
 
   simple-chat:
-    image: thandi13/simple-chat:v0.94
+    image: thandi13/simple-chat:v0.95
     build: 
       context: .
       dockerfile: Dockerfile
