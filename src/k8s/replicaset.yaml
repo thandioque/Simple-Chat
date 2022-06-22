@@ -3,6 +3,7 @@ kind: ReplicaSet
 metadata:
   name: simple-chat-replicaset
 spec:
+  replicas: 1
   selector:
     matchLabels:
       tag: v0.95
