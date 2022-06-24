@@ -1,33 +1,77 @@
+# The MongoDB Deployment 
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: mongo
+spec:
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+      - name: mongo
+        image: mongo:5.0
+        ports:
+          -  containerPort: 27017
+        env: 
+          - name: MONGO_INITDB_ROOT_USERNAME
+            value: mongouser 
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            value: mongopwd 
+---
+# The MongoDB Service 
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo
+spec:
+  selector:
+    app: mongo
+  ports:
+  - port: 27017 
+  type: ClusterIP 
+---
+# The Simple-Chat Web Application Deployment 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: simple-chat-deployment
+  name: web
 spec:
   replicas: 1
   selector:
     matchLabels:
-      tag: v0.95
+      app: web
   template:
     metadata:
       labels:
-        tag: v0.95
+        app: web
     spec:
       containers:
-      - name: simple-chat-web-app
+      - name: web
         image: thandi13/simple-chat:v0.95
         ports:
-          - containerPort: 3000
+        - containerPort: 3000
+        env:
+        - name: MONGODB_URI
+          value: mongodb://mongouser:mongopwd@mongo:27017/admin 
+        - name: PORT
+          value: "3000"
 ---
+# The Simple-Chat Web Application Service 
 apiVersion: v1
 kind: Service
 metadata:
-  name: simple-chat-service
+  name: web
 spec:
   selector:
-    tag: v0.95
-  ports:
-  - protocol: TCP
-    port: 3000 
+    app: web
+  ports:  
+  - port: 80
+    targetPort: 3000 
     nodePort: 30000
   type: NodePort 
         
