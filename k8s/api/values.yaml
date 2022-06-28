@@ -1,5 +1,6 @@
 mongo:
   tag: 5.0
+  portNumber: 27017
   credentials:
     userName: mongouser
     userPassword: mongopwd
