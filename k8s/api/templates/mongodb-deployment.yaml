@@ -2,18 +2,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
-  name: mongo
+  name: {{ .Values.mongo.name }}
 spec:
   selector:
     matchLabels:
-      app: mongo
+      app: {{ .Values.mongo.name }}
   template:
     metadata:
       labels:
-        app: mongo
+        app: {{ .Values.mongo.name }}
     spec:
       containers:
-      - name: mongo
+      - name: {{ .Values.mongo.name }}
         image: mongo:{{ .Values.mongo.tag }}
         ports:
           -  containerPort: {{ .Values.mongo.portNumber }} 
