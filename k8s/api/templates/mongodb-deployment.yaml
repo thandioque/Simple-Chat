@@ -1,0 +1,24 @@
+# The MongoDB Deployment 
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: {{ .Values.mongo.name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.mongo.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.mongo.name }}
+    spec:
+      containers:
+      - name: {{ .Values.mongo.name }}
+        image: mongo:{{ .Values.mongo.tag }}
+        ports:
+          -  containerPort: {{ .Values.mongo.portNumber }} 
+        env: 
+          - name: MONGO_INITDB_ROOT_USERNAME
+            value: {{ .Values.mongo.credentials.userName }}  
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            value: {{ .Values.mongo.credentials.userPassword }}  
