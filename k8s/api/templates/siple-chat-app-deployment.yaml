@@ -1,0 +1,26 @@
+# The Simple-Chat Web Application Deployment 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-simple-chat-app-deployment
+spec:
+  replicas: {{ .Values.deploy.replicaQuantity }} 
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-simple-chat-app-deployment
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-simple-chat-app-deployment
+    spec:
+      containers:
+      - name: simple-chat-app
+        image: thandi13/simple-chat:{{ .Values.app.tag }} 
+        ports:
+        - containerPort: 3000
+        env:
+        - name: MONGODB_URI
+          value: {{ .Values.app.mongoUri }}
+        - name: PORT
+          value: "{{ .Values.app.serverPort }}"
+          
