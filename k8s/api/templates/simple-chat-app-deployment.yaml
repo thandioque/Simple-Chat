@@ -17,7 +17,7 @@ spec:
       - name: simple-chat-app
         image: thandi13/simple-chat:{{ .Values.app.tag }} 
         ports:
-        - containerPort: 3000
+        - containerPort: {{ .Values.app.serverPort }}
         env:
         - name: MONGODB_URI
           value: {{ .Values.app.mongoUri }}
