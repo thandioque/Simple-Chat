@@ -7,5 +7,5 @@ spec:
   selector:
     app: {{ .Release.Name }}-mongodb-deployment
   ports:
-  - port: 27017 
+  - port: {{ .Values.mongo.numberPort }}  
   type: ClusterIP 
