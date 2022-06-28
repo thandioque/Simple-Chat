@@ -16,7 +16,7 @@ spec:
       - name: mongo
         image: mongo:{{ .Values.mongo.tag }}
         ports:
-          -  containerPort: {{ .Values.mongo.numberPort }} 
+          -  containerPort: {{ .Values.mongo.portNumber }} 
         env: 
           - name: MONGO_INITDB_ROOT_USERNAME
             value: {{ .Values.mongo.credentials.userName }}  
