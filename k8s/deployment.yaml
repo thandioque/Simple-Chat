@@ -1,28 +1,3 @@
-# The MongoDB Deployment 
-apiVersion: apps/v1
-kind: Deployment
-metadata: 
-  name: mongo
-spec:
-  selector:
-    matchLabels:
-      app: mongo
-  template:
-    metadata:
-      labels:
-        app: mongo
-    spec:
-      containers:
-      - name: mongo
-        image: mongo:5.0
-        ports:
-          -  containerPort: 27017
-        env: 
-          - name: MONGO_INITDB_ROOT_USERNAME
-            value: mongouser 
-          - name: MONGO_INITDB_ROOT_PASSWORD
-            value: mongopwd 
----
 # The MongoDB Service 
 apiVersion: v1
 kind: Service
