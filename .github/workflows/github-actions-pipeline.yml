@@ -28,7 +28,8 @@ jobs:
       - name: Docker Login
         uses: docker/login-action@v2.0.0
         with:
-          username: # optional
-          # Password or personal access token used to log against the Docker registry
-          password: # optional
+          # Username used to log against the Docker registry
+          username: ${{ secrets.DOCKERHUB_USER}}
+          # Password used to log against the Docker registry
+          password: ${{ secrets.DOCKERHUB_PASSWORD}}
 
