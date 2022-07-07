@@ -1,0 +1,14 @@
+# The Simple-Chat Web Application Service 
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-simple-chat-app-service
+spec:
+  selector:
+    app: {{ .Release.Name }}-simple-chat-app-deployment
+  ports:  
+  - port: 80
+    targetPort: {{ .Values.app.serverPort }} 
+    nodePort: 30000
+  type: NodePort 
+        

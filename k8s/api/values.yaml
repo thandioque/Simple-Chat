@@ -1,0 +1,14 @@
+mongo:
+  name: mongo
+  tag: 5.0
+  portNumber: 27017
+  credentials:
+    userName: mongouser
+    userPassword: mongopwd
+deploy:
+  replicaQuantity: 1
+app:
+  tag: v0.95
+  mongoUri: mongodb://mongouser:mongopwd@mongo:27017/admin 
+  serverPort: 3000
+
