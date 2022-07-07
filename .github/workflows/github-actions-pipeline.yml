@@ -32,4 +32,23 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USER}}
           # Password used to log against the Docker registry
           password: ${{ secrets.DOCKERHUB_PASSWORD}}
+      # Builds the Docker images and push to Docker Hub
+      - name: Docker Build and Push
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v3.0.0
+        with:
+          # Build's context is the set of files located in the specified PATH 
+          context: ./src
+          # Path to the Dockerfile
+          file: ./src/Dockerfile
+          # Allow the Push to Docker Hub
+          push: true
+          # List of tags
+          tags: |
+            thandi13/simple-chat:latest
+            thandi13/simple-chat:v-GA-${{ github.run_number }}
+
+
+          
+
 
