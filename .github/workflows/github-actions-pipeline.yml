@@ -33,7 +33,6 @@ jobs:
           # Password used to log against the Docker registry
           password: ${{ secrets.DOCKERHUB_PASSWORD}}
       # Builds the Docker images and push to Docker Hub
-      - name: Docker Build and Push
       - name: Build and push Docker images
         uses: docker/build-push-action@v3.0.0
         with:
