@@ -11,4 +11,10 @@ app:
   tag: v0.95
   mongoUri: mongodb://mongouser:mongopwd@mongo:27017/admin 
   serverPort: 3000
+  loadbalancer:
+    type: 
+      enabled: true
+
+
+
 
