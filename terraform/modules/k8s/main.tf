@@ -1,3 +1,13 @@
+# The Terraform version and provider.
+terraform {
+  required_providers {
+    digitalocean = {
+      source = "digitalocean/digitalocean"
+      version = "~> 2.0"
+    }
+  }
+}
+
 # Create a k8s clsuter in DigitalOcean
 resource "digitalocean_kubernetes_cluster" "k8s_cluster_tf" {
   name   = var.k8s_cluster_name 
