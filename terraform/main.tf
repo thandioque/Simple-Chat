@@ -14,12 +14,12 @@ provider "digitalocean" {
 }
 
 # The Kubernetes Cluster module 
-module desktop_k8s_cluster_variables_using_local_module {
-  source          = "./k8s"
-  cluster_name    = var.desktop_k8s_cluster_name
-  cluster_region  = var.desktop_k8s_cluster_region
-  cluster_version = var.desktop_k8s_cluster_version
-  node_name       = var.desktop_node_name
-  node_size       = var.desktop_node_size
-  node_count      = var.desktop_node_count
+module "terraform-digital_ocean_k8s_cluster_variables" {
+  source              = "./modules/k8s"
+  k8s_cluster_name    = var.desktop_k8s_cluster_name
+  k8s_cluster_region  = var.desktop_k8s_cluster_region
+  k8s_cluster_version = var.desktop_k8s_cluster_version
+  node_name           = var.desktop_node_name
+  node_size           = var.desktop_node_size
+  node_count          = var.desktop_node_count
 }
