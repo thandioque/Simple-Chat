@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-simple-chat-app-deployment
 spec:
-  replicas: {{ .Values.deploy.replicaQuantity }} 
+  replicas: {{ .Values.deploy.replicaQuantity | default 1 }} 
   selector:
     matchLabels:
       app: {{ .Release.Name }}-simple-chat-app-deployment
@@ -15,12 +15,12 @@ spec:
     spec:
       containers:
       - name: simple-chat-app
-        image: thandi13/simple-chat:{{ .Values.app.tag }} 
+        image: thandi13/simple-chat:{{ .Values.app.tag | default "v0.95" }} 
         ports:
-        - containerPort: {{ .Values.app.serverPort }}
+        - containerPort: {{ .Values.app.serverPort | default 3000 }}
         env:
         - name: MONGODB_URI
           value: {{ .Values.app.mongoUri }}
         - name: PORT
-          value: "{{ .Values.app.serverPort }}"
+          value: "{{ .Values.app.serverPort | default 3000 }}"
           
