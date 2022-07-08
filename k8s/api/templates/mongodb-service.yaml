@@ -2,10 +2,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.mongo.name }}
+  name: {{ .Values.mongo.name | default "mongo" }}
 spec:
   selector:
-    app: {{ .Values.mongo.name }}
+    app: {{ .Values.mongo.name | default "mongo" }}
   ports:
-  - port: {{ .Values.mongo.portNumber }}  
+  - port: {{ .Values.mongo.portNumber | default 27017 }}  
   type: ClusterIP 
