@@ -78,4 +78,5 @@ jobs:
           chart: ./k8s/api
           # Helm chart values path.
           values: ./k8s/api/values.yaml
-          
+        env:
+          KUBECONFIG_FILE: ${{ secrets.KUBERNETES_KUBECONFIG }}
