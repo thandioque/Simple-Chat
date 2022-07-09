@@ -1,27 +1,27 @@
-# This is a basic workflow to help you get started with Actions
+# The CI/CD workflow has jobs to builds a Docker image, push to Docker Hub and Deploy to Kubernetes Cluster using GitHub Actions tool.
 
 name: CI - CD 
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "master" branch
+  # Triggers the workflow on push event but only for the "staging" branch
   push:
     branches: [ "staging" ]
 
 
-  # Allows you to run this workflow manually from the Actions tab
+  # Allows run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# This workflow run is made up of two jobs (CI and CD) that runs sequentially 
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+  # The CI job builds a Docker image and push to Docker Hub
+  CI:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    # Steps have a sequence of Docker tasks that authenticates in Docker Hub, build the Docker images and push to Docker Registry 
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # Checks-out the repository under $GITHUB_WORKSPACE to the job access it
       - uses: actions/checkout@v3
 
       # Authenticates in Docker Hub
@@ -46,8 +46,36 @@ jobs:
           tags: |
             thandi13/simple-chat:latest
             thandi13/simple-chat:v-GA-${{ github.run_number }}
+# The CD job deploys the Docker image to Kubernetes Cluster
+  CD:
+  # Configures a dependency parameter in job to run it sequentially
+    needs: [CI]
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
 
+    # Steps have a sequence of Kubernetes tasks that deploys to a kubernetes cluster setting context 
+    steps:
+      # Checks-out the repository under $GITHUB_WORKSPACE to the job access it
+      - uses: actions/checkout@v3
 
+      # Establishes a connection  with Kubernetes cluster using the context configurations 
+      - name: Deploy to Kubernetes cluster
+        uses: Azure/k8s-set-context@v3.0
+        with:
+          # Method to connect with the Kubernetes Cluster 
+          method: kubeconfig
+          # Contents of kubeconfig file
+          kubeconfig: ${{ secrets.KUBERNETES_KUBECONFIG }}
+      # Deploys a Docker image in Kubernetes Cluster using Helm 
+      - name: Helm Deploy
+        uses: vimeda/helm@v1.6.8
+        with:
+          # Helm release name. 
+          release: api
+          # Kubernetes namespace name.
+          namespace: simple-chat
+          # Helm chart path. 
+          chart: ./k8s/api
+          # Helm chart values path.
+          values: ./k8s/api/values.yaml
           
-
-
