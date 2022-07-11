@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: simple-chat-app
-        image: thandi13/simple-chat:{{ .Values.app.tag | default "v0.95" }} 
+        image: thandi13/simple-chat:{{ .Values.app.tag | default "latest" }} 
         ports:
         - containerPort: {{ .Values.app.serverPort | default 3000 }}
         env:
