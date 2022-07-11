@@ -1,6 +1,6 @@
 src/node_modules
 src/venv
-terraform/.terraform
-terraform/terraform.auto.tfvars
+terraform/
+k8s/
 .github/
 .azurepipelines/
