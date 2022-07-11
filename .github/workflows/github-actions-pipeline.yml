@@ -80,3 +80,9 @@ jobs:
           # values: ./k8s/api/values.yaml
         env:
           KUBECONFIG_FILE: ${{ secrets.KUBERNETES_KUBECONFIG }}
+          HELM_APP_TAG: ${{ github.run_number }}
+      # Tests the environment variable use in GitHub Actions 
+      - name: Show Helm image tag as environment variable
+        run: |
+          echo "The Helm image tag is: $HELM_APP_TAG" 
+ 
