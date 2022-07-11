@@ -84,5 +84,5 @@ jobs:
       # Tests the environment variable use in GitHub Actions 
       - name: Show Helm image tag as environment variable
         run: |
-          echo "The Helm image tag is: $HELM_APP_TAG" 
+          echo "The Helm image tag is: ${{ env.HELM_APP_TAG}} " 
  
