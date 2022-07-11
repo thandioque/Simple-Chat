@@ -34,6 +34,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD}}
       # Builds the Docker images and push to Docker Hub
       - name: Build and push Docker images
+        env:
+          HELM_APP_TAG: ${{ github.run_number }}
         uses: docker/build-push-action@v3.0.0
         with:
           # Build's context is the set of files located in the specified PATH 
@@ -80,10 +82,5 @@ jobs:
           # values: ./k8s/api/values.yaml
         env:
           KUBECONFIG_FILE: ${{ secrets.KUBERNETES_KUBECONFIG }}
-      # Tests the environment variable use in GitHub Actions 
-      - name: Show Helm image tag as environment variable
-        env:
-          HELM_APP_TAG: ${{ github.run_number }}
-        run: |
-          echo "The Helm image tag is: ${{ env.HELM_APP_TAG }} " 
+
  
