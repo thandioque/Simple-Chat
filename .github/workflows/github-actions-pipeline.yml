@@ -47,7 +47,7 @@ jobs:
           # List of tags
           tags: |
             thandi13/simple-chat:latest
-            thandi13/simple-chat:v-GA-$HELM_APP_TAG
+            thandi13/simple-chat:v-GA-${{ github.run_number }}
 # The CD job deploys the Docker image to Kubernetes Cluster
   CD:
   # Configures a dependency parameter in job to run it sequentially
