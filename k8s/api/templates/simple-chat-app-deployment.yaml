@@ -15,12 +15,15 @@ spec:
     spec:
       containers:
       - name: simple-chat-app
-        image: thandi13/simple-chat:{{ .Values.app.tag | default "latest" }} 
+        image: thandi13/simple-chat:{{ .Values.app.tag | default "v0.95" }} 
         ports:
         - containerPort: {{ .Values.app.serverPort | default 3000 }}
         env:
         - name: MONGODB_URI
-          value: {{ .Values.app.mongoUri }}
+          valueFrom:
+            secretKeyRef:
+              key:  mongoUri
+              name: {{ .Release.Name }}-simple-chat-app-secret
         - name: PORT
           value: "{{ .Values.app.serverPort | default 3000 }}"
           

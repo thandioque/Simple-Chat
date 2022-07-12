@@ -8,13 +8,9 @@ mongo:
 deploy:
   replicaQuantity: 1
 app:
-  tag: ${HELM_APP_TAG}
-  mongoUri: mongodb://mongouser:mongopwd@mongo:27017/admin 
+  tag: v0.95
+  mongoUri: $HELM_MONGODB_URI
   serverPort: 3000
   loadbalancer:
     type: 
       enabled: true
-
-
-
-
