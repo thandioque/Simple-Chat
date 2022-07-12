@@ -78,6 +78,6 @@ jobs:
           chart: ./k8s/api
         env:
           KUBECONFIG_FILE: ${{ secrets.KUBERNETES_KUBECONFIG }}
-          HELM_APP_TAG: v-GA-${{ github.run_number }}
+          HELM_MONGODB_URI: mongodb://mongouser:mongopwd@mongo:27017/admin 
 
  
