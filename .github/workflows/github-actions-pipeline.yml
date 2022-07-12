@@ -34,8 +34,6 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD}}
       # Builds the Docker images and push to Docker Hub
       - name: Build and push Docker images
-        env:
-          HELM_APP_TAG: ${{ github.run_number }}
         uses: docker/build-push-action@v3.0.0
         with:
           # Build's context is the set of files located in the specified PATH 
@@ -78,9 +76,8 @@ jobs:
           namespace: simple-chat
           # Helm chart path. 
           chart: ./k8s/api
-          # Helm chart values path.
-          # values: ./k8s/api/values.yaml
         env:
           KUBECONFIG_FILE: ${{ secrets.KUBERNETES_KUBECONFIG }}
+          HELM_APP_TAG: v-GA-${{ github.run_number }}
 
  
