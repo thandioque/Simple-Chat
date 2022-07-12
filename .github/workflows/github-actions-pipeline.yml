@@ -66,18 +66,14 @@ jobs:
           method: kubeconfig
           # Contents of kubeconfig file
           kubeconfig: ${{ secrets.KUBERNETES_KUBECONFIG }}
-      # Deploys a Docker image in Kubernetes Cluster using Helm 
-      - name: Helm Deploy
-        uses: vimeda/helm@v1.6.8
+      # Helm installation in cluster
+      - name: Helm tool installer
+        uses: Azure/setup-helm@v3
         with:
-          # Helm release name. 
-          release: api
-          # Kubernetes namespace name.
-          namespace: simple-chat
-          # Helm chart path. 
-          chart: ./k8s/api
-        env:
-          KUBECONFIG_FILE: ${{ secrets.KUBERNETES_KUBECONFIG }}
-          HELM_MONGODB_URI: mongodb://mongouser:mongopwd@mongo:27017/admin 
-
+          # Version of helm
+          version: v3.9.0
+      # Verifies the helm version 
+      - name: Helm Version Verification
+        run: |
+          helm version
  
