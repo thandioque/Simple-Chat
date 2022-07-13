@@ -72,8 +72,16 @@ jobs:
         with:
           # Version of helm
           version: v3.9.0
-      # Verifies the helm version 
-      - name: Helm Version Verification
+      # Deploy the final artifact to Kubernetes Cluster using Helm tool with environment variables
+      - name: Helm deploy to Kubernetes Cluster 
+        env:
+          APP_NAME: api
+          NAMESPACE: simple-chat
+          HELM_MONGODB_URI: mongodb://usuario:senha@mongo:27017/admin 
         run: |
-          helm version
+          helm upgrade ${APP_NAME} ./api --install --set mongoUri=$HELM_MONGODB_URI --values=./api/values.yaml --namespace ${NAMESPACE}
+        
+
+
+
  
