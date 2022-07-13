@@ -19,6 +19,13 @@ spec:
           -  containerPort: {{ .Values.mongo.portNumber | default 27017 }} 
         env: 
           - name: MONGO_INITDB_ROOT_USERNAME
-            value: {{ .Values.mongo.credentials.userName }}  
+            valueFrom:
+              secretKeyRef:
+                key:  userName
+                name: {{ .Release.Name }}-simple-chat-app-secret
           - name: MONGO_INITDB_ROOT_PASSWORD
-            value: {{ .Values.mongo.credentials.userPassword }}  
+            valueFrom:
+              secretKeyRef:
+                key:  userPassword
+                name: {{ .Release.Name }}-simple-chat-app-secret
+

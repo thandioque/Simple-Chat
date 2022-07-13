@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: simple-chat-app
-        image: thandi13/simple-chat:{{ .Values.app.tag | default "v0.95" }} 
+        image: thandi13/simple-chat:{{ .Values.app.tag | default "latest" }} 
         ports:
         - containerPort: {{ .Values.app.serverPort | default 3000 }}
         env:
@@ -25,5 +25,9 @@ spec:
                 key:  mongoUri
                 name: {{ .Release.Name }}-simple-chat-app-secret
           - name: PORT
-            value: "{{ .Values.app.serverPort | default 3000 }}"
+            valueFrom:
+              secretKeyRef:
+                key:  serverPort
+                name: {{ .Release.Name }}-simple-chat-app-secret
+
           
