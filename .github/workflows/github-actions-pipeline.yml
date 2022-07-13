@@ -79,7 +79,7 @@ jobs:
           NAMESPACE: simple-chat
           HELM_MONGODB_URI: mongodb://usuario:senha@mongo:27017/admin 
         run: |
-          helm upgrade ${APP_NAME} ./k8s/api --install --set mongoUri=$HELM_MONGODB_URI --values=./api/values.yaml --namespace ${NAMESPACE}
+          helm upgrade ${APP_NAME} ./k8s/api --install --set mongoUri=$HELM_MONGODB_URI --values=./k8s/api/values.yaml --namespace ${NAMESPACE}
         
 
 
