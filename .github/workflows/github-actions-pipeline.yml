@@ -87,8 +87,8 @@ jobs:
           --set name=${{ env.HELM_MONGODB_NAME }} \
           --set userName=${{ env.HELM_MONGO_USERNAME }} \
           --set userPassword=${{ env.HELM_MONGO_PASSWORD }} \
-          --set mongoUri=${{ env.HELM_MONGODB_URI }} \
           --set serverPort=${{ env.HELM_SERVER_PORT }} \ 
+          --set mongoUri=${{ env.HELM_MONGODB_URI }} \
           --values=./k8s/api/values.yaml --namespace ${{ env.NAMESPACE }}
           kubectl -n ${{ env.NAMESPACE }} set image deployment/${{ env.APP_NAME }}-simple-chat-app-deployment simple-chat-app=thandi13/simple-chat:v-GA-${{ github.run_number }}
         

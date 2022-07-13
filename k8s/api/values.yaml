@@ -4,11 +4,11 @@ mongo:
   portNumber: 27017 
   credentials:
     userName: flavio 
-    userPassword: 131313 
+    userPassword: vidacara 
 deploy:
   replicaQuantity: 1
 app:
-  tag: pinxadão
+  tag: pinxadao
   mongoUri: mongodb://flavio:131313@mainstreet:131313/admin 
   serverPort: 3000
   loadbalancer:
