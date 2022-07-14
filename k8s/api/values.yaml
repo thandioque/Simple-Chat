@@ -1,15 +1,15 @@
 mongo:
-  name: mainstreet
+  name: mongo
   tag: 5.0
   portNumber: 27017 
   credentials:
-    userName: flavio 
-    userPassword: vidacara 
+    userName: mongouser 
+    userPassword: mongopwd 
 deploy:
   replicaQuantity: 1
 app:
-  tag: pinxadao
-  mongoUri: mongodb://flavio:131313@mainstreet:131313/admin 
+  tag: latest
+  mongoUri: mongodb://mongouser:mongopwd@mongo:27017/admin 
   serverPort: 3000
   loadbalancer:
     type: 
