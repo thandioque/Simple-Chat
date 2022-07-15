@@ -27,7 +27,7 @@ spec:
                 # key:  mongoUri
                 # name: {{ .Release.Name }}-simple-chat-app-secret
           - name: PORT
-            value: {{ .Values.app.serverPort }}
+            value: "{{ .Values.app.serverPort }}"
           # - name: PORT
             #valueFrom:
               #secretKeyRef:
