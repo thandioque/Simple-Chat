@@ -4,6 +4,7 @@ kind: Deployment
 metadata: 
   name: {{ .Values.mongo.name | default "mongo" }}
 spec:
+  replicas: {{ .Values.deploy.replicaQuantity | default 1 }} 
   selector:
     matchLabels:
       app: {{ .Values.mongo.name | default "mongo" }}
