@@ -19,13 +19,11 @@ spec:
         ports:
         - containerPort: {{ .Values.app.serverPort | default 3000 }}
         env:
-          - name: MONGODB_URI
-            value: {{ .Values.app.mongoUri }}
-          # - name: MONGODB_URI
-            # valueFrom:
-              # secretKeyRef:
-                # key:  mongoUri
-                # name: {{ .Release.Name }}-simple-chat-app-secret
+          - name: "MONGODB_URI"
+            valueFrom:
+              secretKeyRef:
+                key:  mongoUri
+                name: {{ .Release.Name }}-simple-chat-app-secret   
           - name: "PORT"
             valueFrom:
               secretKeyRef:
