@@ -3,7 +3,7 @@ mongo:
   tag: 5.0
   portNumber: 27017 
   credentials:
-    userName:  
+    userName: flavin 
     userPassword: mongopwd 
 deploy:
   replicaQuantity: 1

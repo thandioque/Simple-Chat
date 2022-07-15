@@ -82,7 +82,7 @@ jobs:
           #HELM_MONGODB_URI: mongodb://$HELM_MONGO_USERNAME:$HELM_MONGO_PASSWORD@$HELM_MONGODB_NAME:27017/admin 
           # --set userPassword=${{ env.HELM_MONGO_PASSWORD }} --set mongoUri=${{ env.HELM_MONGODB_URI }}
         run: |
-          helm upgrade ${{ env.RELEASE_NAME }} --set userName=${{ secrets.HELM_MONGO_USERNAME }}} --set serverPort=${{ env.HELM_SERVER_PORT }} ./k8s/api --install --values=./k8s/api/values.yaml --namespace ${{ env.NAMESPACE }}
+          helm upgrade ${{ env.RELEASE_NAME }} --set userName="usuario" --set serverPort=${{ env.HELM_SERVER_PORT }} ./k8s/api --install --values=./k8s/api/values.yaml --namespace ${{ env.NAMESPACE }}
           kubectl -n ${{ env.NAMESPACE }} set image deployment/${{ env.RELEASE_NAME }}-simple-chat-app-deployment simple-chat-app=thandi13/simple-chat:v-GA-${{ github.run_number }}
                   
 
