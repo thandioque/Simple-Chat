@@ -3,7 +3,7 @@ mongo:
   tag: 5.0
   portNumber: 27017 
   credentials:
-    userName: random 
+    userName: mongouser 
     userPassword: mongopwd 
 deploy:
   replicaQuantity: 1
