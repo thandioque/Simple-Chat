@@ -83,7 +83,7 @@ jobs:
           # --set userPassword=${{ env.HELM_MONGO_PASSWORD }} --set mongoUri=${{ env.HELM_MONGODB_URI }}
         run: |
           export MONGO_INITDB_ROOT_USERNAME=hello_user
-          helm upgrade ${{ env.RELEASE_NAME }} --set userName=$MONGO_INITDB_ROOT_USERNAME --set serverPort=${{ env.HELM_SERVER_PORT }} ./k8s/api --namespace ${{ env.NAMESPACE }}
+          helm upgrade ${{ env.RELEASE_NAME }} --set mongo.credentials.userName=mongousertest --set serverPort=${{ env.HELM_SERVER_PORT }} ./k8s/api --namespace ${{ env.NAMESPACE }}
           kubectl -n ${{ env.NAMESPACE }} set image deployment/${{ env.RELEASE_NAME }}-simple-chat-app-deployment simple-chat-app=thandi13/simple-chat:v-GA-${{ github.run_number }}
                   
 
