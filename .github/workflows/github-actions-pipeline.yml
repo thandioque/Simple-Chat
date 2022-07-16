@@ -1,0 +1,90 @@
+# The CI/CD workflow has jobs to builds a Docker image, push to Docker Hub and Deploy to Kubernetes Cluster using GitHub Actions tool.
+
+name: CI - CD 
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push event but only for the "staging" branch
+  push:
+    branches: [ "staging" ]
+
+
+  # Allows run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# This workflow run is made up of two jobs (CI and CD) that runs sequentially 
+jobs:
+  # The CI job builds a Docker image and push to Docker Hub
+  CI:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps have a sequence of Docker tasks that authenticates in Docker Hub, build the Docker images and push to Docker Registry 
+    steps:
+      # Checks-out the repository under $GITHUB_WORKSPACE to the job access it
+      - uses: actions/checkout@v3
+
+      # Authenticates in Docker Hub
+      - name: Docker Login
+        uses: docker/login-action@v2.0.0
+        with:
+          # Username used to log against the Docker registry
+          username: ${{ secrets.DOCKERHUB_USER}}
+          # Password used to log against the Docker registry
+          password: ${{ secrets.DOCKERHUB_PASSWORD}}
+      # Builds the Docker images and push to Docker Hub
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v3.0.0
+        with:
+          # Build's context is the set of files located in the specified PATH 
+          context: ./src
+          # Path to the Dockerfile
+          file: ./src/Dockerfile
+          # Allow the Push to Docker Hub
+          push: true
+          # List of tags
+          tags: |
+            thandi13/simple-chat:latest
+            thandi13/simple-chat:v-GA-${{ github.run_number }}
+# The CD job deploys the Docker image to Kubernetes Cluster
+  CD:
+  # Configures a dependency parameter in job to run it sequentially
+    needs: [CI]
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps have a sequence of Kubernetes tasks that deploys to a kubernetes cluster setting context 
+    steps:
+      # Checks-out the repository under $GITHUB_WORKSPACE to the job access it
+      - uses: actions/checkout@v3
+
+      # Establishes a connection  with Kubernetes cluster using the context configurations 
+      - name: Deploy to Kubernetes cluster
+        uses: Azure/k8s-set-context@v3.0
+        with:
+          # Method to connect with the Kubernetes Cluster 
+          method: kubeconfig
+          # Contents of kubeconfig file
+          kubeconfig: ${{ secrets.KUBERNETES_KUBECONFIG }}
+      # Helm installation in cluster
+      - name: Helm tool installer
+        uses: Azure/setup-helm@v3
+        with:
+          # Version of helm
+          version: v3.9.0
+      # Deploy the final artifact to Kubernetes Cluster using Helm tool with environment variables
+      - name: Helm deploy to Kubernetes Cluster 
+        env:
+          RELEASE_NAME: api
+          NAMESPACE: simple-chat
+          HELM_SERVER_PORT: 3000
+          HELM_MONGO_USERNAME: ${{ secrets.HELM_MONGO_USERNAME }}
+          HELM_MONGO_PASSWORD: ${{ secrets.HELM_MONGO_PASSWORD }}
+        run: |
+          helm upgrade ${{ env.RELEASE_NAME }} --set mongo.credentials.userName=${{ env.HELM_MONGO_USERNAME }} --set mongo.credentials.userPassword=${{ env.HELM_MONGO_PASSWORD }} --set app.mongoUri=mongodb://${{ env.HELM_MONGO_USERNAME }}:${{ env.HELM_MONGO_PASSWORD }}@mongo:27017/admin  --set app.serverPort=${{ env.HELM_SERVER_PORT }} ./k8s/api --namespace ${{ env.NAMESPACE }}
+          kubectl -n ${{ env.NAMESPACE }} set image deployment/${{ env.RELEASE_NAME }}-simple-chat-app-deployment simple-chat-app=thandi13/simple-chat:v-GA-${{ github.run_number }}
+                  
+
+
+
+ 

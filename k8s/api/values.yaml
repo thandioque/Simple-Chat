@@ -1,0 +1,16 @@
+mongo:
+  name: mongo
+  tag: 5.0
+  portNumber: 27017 
+  credentials:
+    userName: random 
+    userPassword: random 
+deploy:
+  replicaQuantity: 1
+app:
+  tag: latest
+  mongoUri: random
+  serverPort: 3000
+  loadbalancer:
+    type: 
+      enabled: true

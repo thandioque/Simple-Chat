@@ -1,2 +1,6 @@
-node_modules
-venv
+src/node_modules
+src/venv
+terraform/
+k8s/
+.github/
+.azurepipelines/
