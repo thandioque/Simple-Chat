@@ -1,11 +1,20 @@
 version: '3.1'
 
+networks:
+  verdaccio-network:
+    driver: bridge
+
+volumes:
+  verdaccio-storage:
+  verdaccio-conf:
+  verdaccio-plugins:
+
 services:
   verdaccio:
     image: verdaccio/verdaccio:5.14
     container_name: "verdaccio"
     networks:
-      - node-network
+      - verdaccio-network
     environment:
       - VERDACCIO_PORT=4873
     ports:
@@ -14,6 +23,3 @@ services:
       - "verdaccio-storage:/verdaccio/storage"
       - "verdaccio-conf:/verdaccio/conf"
       - "verdaccio-plugins:/verdaccio/plugins"  
-networks:
-  node-network:
-    driver: bridge
