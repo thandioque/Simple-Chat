@@ -4,7 +4,8 @@
   "description": "demo chat app",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine"
+    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "lint": "eslint . --ext .ts"
   },
   "author": "",
   "license": "ISC",
@@ -14,7 +15,13 @@
     "mongoose": "^6.3.3",
     "socket.io": "^4.5.0"
   },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run prettier-format && npm run lint"
+    }
+  },
   "devDependencies": {
+    "husky": "^8.0.3",
     "jasmine": "^3.1.0",
     "request": "^2.87.0"
   }
