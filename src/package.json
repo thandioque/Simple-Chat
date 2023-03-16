@@ -1,13 +1,18 @@
 {
-  "name": "demo-chat-app",
-  "version": "1.0.0",
-  "description": "demo chat app",
-  "main": "index.js",
+  "husky": {
+    "hooks": {
+      "pre-push": "git diff HEAD --quiet && npm run prettier-format && npm run lint"
+    }
+  },
   "scripts": {
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "lint": "eslint . --ext .ts",
     "prepare": "husky install"
   },
+  "name": "demo-chat-app",
+  "version": "1.0.0",
+  "description": "demo chat app",
+  "main": "index.js",
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -20,10 +25,5 @@
     "husky": "^8.0.3",
     "jasmine": "^3.1.0",
     "request": "^2.87.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "git diff HEAD --quiet && npm run prettier-format && npm run lint"
-    }
   }
 }
