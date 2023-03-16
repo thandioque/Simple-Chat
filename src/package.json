@@ -2,9 +2,9 @@
   "name": "demo-chat-app",
   "version": "1.0.0",
   "scripts": {
-    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
-    "lint": "eslint . --ext .ts",
-    "prepare": "husky install"
+    "prettier-format": "cd src && prettier --config .prettierrc 'src/**/*.ts' --write",
+    "lint": "cd src && eslint . --ext .ts",
+    "prepare": "cd .. && husky install src/.husky"
   },
   "husky": {
     "hooks": {
