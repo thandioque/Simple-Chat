@@ -4,7 +4,7 @@
   "scripts": {
     "prettier-format": "cd src/ && prettier --config .prettierrc 'src/**/*.ts' --write",
     "lint": "cd src/ && eslint . --ext .ts",
-    "prepare": "cd .. && husky install src/.husky"
+    "prepare": "cd .. && husky install src/.husky "
   },
   "husky": {
     "hooks": {
