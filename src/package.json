@@ -1,11 +1,16 @@
 {
   "name": "demo-chat-app",
+  "version": "1.0.0",
   "scripts": {
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "lint": "eslint . --ext .ts",
     "prepare": "husky install"
   },
-  "version": "1.0.0",
+  "husky": {
+    "hooks": {
+      "pre-push": "git diff HEAD --quiet && npm run prettier-format && npm run lint"
+    }
+  },
   "description": "demo chat app",
   "main": "index.js",
   "author": "",
@@ -18,10 +23,5 @@
   },
   "devDependencies": {
     "husky": "^8.0.3"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "git diff HEAD --quiet && npm run prettier-format && npm run lint"
-    }
   }
 }
