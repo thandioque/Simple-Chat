@@ -2,12 +2,13 @@
   "name": "demo-chat-app",
   "version": "1.0.0",
   "scripts": {
-    "prettier-format": "cd src/ && prettier --config .prettierrc 'src/**/*.ts' --write",
-    "lint": "cd src/ && eslint . --ext .ts",
+    "prettier-format": "prettier --config .prettierrc 'src/*.js' --write",
+    "lint": "eslint . --ext .ts",
     "prepare": "cd ../ && husky install src/.husky "
   },
   "husky": {
     "hooks": {
+      "pre-commit": "npm run lint-fix && npm run pretty",
       "pre-push": "git diff HEAD --quiet && npm run prettier-format && npm run lint"
     }
   },
@@ -19,6 +20,7 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "mongoose": "^6.3.3",
+    "prettier": "^2.8.4",
     "socket.io": "^4.5.0"
   },
   "devDependencies": {
