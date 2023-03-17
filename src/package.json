@@ -2,6 +2,7 @@
   "name": "demo-chat-app",
   "version": "1.0.0",
   "scripts": {
+    "lint": "eslint ./*.js",
     "lint-fix": "eslint --fix ./*.js",
     "pretty": "prettier --write './*.js'",
     "prepare": "cd .. && husky install ./src/.husky",
