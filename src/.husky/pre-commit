@@ -3,4 +3,4 @@
 
 echo "Script executed from: ${PWD}"
 
-npx lint-staged src/.husky
+cd src/ && npx lint-staged
