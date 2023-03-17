@@ -4,5 +4,3 @@
 cd src/ && npx lint-staged
 
 echo "Script executed from: ${PWD}"
-
-# cd src/ && npx lint-staged
